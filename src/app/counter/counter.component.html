@@ -1,0 +1,21 @@
+<!-- src/app/counter/counter.component.html -->
+
+<div class="counter-container">
+  <div class="counter-box">
+    <h1 class="counter-title">Counter</h1>
+    <p class="counter-value">{{ count$ | async }}</p>
+    <div class="button-group">
+      <button class="btn increment" (click)="onIncrement()">Increment</button>
+      <button class="btn decrement" (click)="onDecrement()">Decrement</button>
+      <button class="btn reset" (click)="onReset()">Reset</button>
+    </div>
+    <div class="increment-by">
+      <input [(ngModel)]="incrementValue" type="number" min="1" />
+      <button class="btn custom-increment" (click)="onIncrementBy()">Increment By</button>
+    </div>
+    <div class="decrement-by">
+      <input [(ngModel)]="decrementValue" type="number" min="1" />
+      <button class="btn custom-decrement" (click)="onDecrementBy()">Decrement By</button>
+    </div>
+  </div>
+</div>
