@@ -7,6 +7,7 @@ import {
   reset,
   incrementBy,
   decrementBy,
+  undo,
 } from '../store/counter.actions';
 import { selectCount } from '../store/counter.selectors';
 
@@ -17,8 +18,8 @@ import { selectCount } from '../store/counter.selectors';
 })
 export class CounterComponent {
   count$: Observable<number>;
-  incrementValue = 1;
-  decrementValue = 1;
+  incrementValue = 2;
+  decrementValue = 2;
 
   constructor(private store: Store) {
     this.count$ = this.store.select(selectCount);
@@ -46,5 +47,9 @@ export class CounterComponent {
     if (this.decrementValue > 0) {
       this.store.dispatch(decrementBy({ value: this.decrementValue }));
     }
+  }
+
+  onUndo(): void {
+    this.store.dispatch(undo());
   }
 }
