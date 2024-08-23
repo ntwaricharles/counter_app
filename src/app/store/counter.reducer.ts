@@ -5,7 +5,7 @@ import {
   reset,
   incrementBy,
   decrementBy,
-  undoLastAction,
+  undo,
 } from './counter.actions';
 
 export interface CounterState {
@@ -22,35 +22,34 @@ export const counterReducer = createReducer(
   initialState,
   on(increment, (state) => ({
     ...state,
+    history: [...state.history, state.value],
     value: state.value + 1,
-    history: [...state.history, state.value + 1],
   })),
   on(decrement, (state) => ({
     ...state,
-    value: Math.max(0, state.value - 1),
-    history: [...state.history, Math.max(0, state.value - 1)],
+    history: [...state.history, state.value],
+    value: state.value > 0 ? state.value - 1 : state.value,
   })),
   on(reset, (state) => ({
     ...state,
+    history: [...state.history, state.value],
     value: 0,
-    history: [...state.history, 0],
   })),
   on(incrementBy, (state, { value }) => ({
     ...state,
+    history: [...state.history, state.value],
     value: state.value + value,
-    history: [...state.history, state.value + value],
   })),
   on(decrementBy, (state, { value }) => ({
     ...state,
-    value: Math.max(0, state.value - value),
-    history: [...state.history, Math.max(0, state.value - value)],
+    history: [...state.history, state.value],
+    value: state.value >= value ? state.value - value : state.value,
   })),
-  on(undoLastAction, (state) => {
-    const lastValue = state.history[state.history.length - 2] || 0;
-    return {
-      ...state,
-      value: lastValue,
-      history: state.history.slice(0, -1),
-    };
-  })
+  on(undo, (state) => ({
+    ...state,
+    value: state.history.length
+      ? state.history[state.history.length - 1]
+      : state.value,
+    history: state.history.slice(0, -1),
+  }))
 );
