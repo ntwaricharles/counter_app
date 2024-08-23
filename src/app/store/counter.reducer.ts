@@ -12,10 +12,10 @@ export const initialState = 0;
 const _counterReducer = createReducer(
   initialState,
   on(increment, (state) => state + 1),
-  on(decrement, (state) => state - 1),
+  on(decrement, (state) => Math.max(state - 1, 0)),
   on(reset, () => initialState),
   on(incrementBy, (state, { value }) => state + value),
-  on(decrementBy, (state, { value }) => state - value) 
+  on(decrementBy, (state, { value }) => Math.max(state - value, 0))
 );
 
 export function counterReducer(state: any, action: any) {
