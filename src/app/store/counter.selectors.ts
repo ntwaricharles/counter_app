@@ -1,8 +1,11 @@
-import { createSelector, createFeatureSelector } from '@ngrx/store';
+// src/app/store/counter.selectors.ts
 
-export const selectCounterState = createFeatureSelector<number>('count');
+import { createSelector, createFeatureSelector } from '@ngrx/store';
+import { CounterState } from './counter.reducer';
+
+export const selectCounterState = createFeatureSelector<CounterState>('count');
 
 export const selectCount = createSelector(
   selectCounterState,
-  (state: number) => state
+  (state: CounterState) => state.value // Ensure we are selecting the value property
 );
