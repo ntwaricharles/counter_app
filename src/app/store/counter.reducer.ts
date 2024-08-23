@@ -1,5 +1,3 @@
-// src/app/store/counter.reducer.ts
-
 import { createReducer, on } from '@ngrx/store';
 import {
   increment,
@@ -17,7 +15,7 @@ const _counterReducer = createReducer(
   on(decrement, (state) => state - 1),
   on(reset, () => initialState),
   on(incrementBy, (state, { value }) => state + value),
-  on(decrementBy, (state, { value }) => Math.max(state - value, 0)) // Ensure state does not go below 0
+  on(decrementBy, (state, { value }) => state - value) 
 );
 
 export function counterReducer(state: any, action: any) {

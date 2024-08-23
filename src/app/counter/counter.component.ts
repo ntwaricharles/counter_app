@@ -1,5 +1,3 @@
-// src/app/counter/counter.component.ts
-
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
